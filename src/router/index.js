@@ -44,8 +44,27 @@ export const constantRouterMap = [
     children: [{
       path: 'home',
       name: 'home',
-      component: () => import('@/views/home/index'),
+      component: () => import('../views/home/index'),
       meta: {title: '首页', icon: 'home'}
+    }]
+  },
+  {
+    path: '/pms',
+    component: Layout,
+    redirect: '/pms/product',
+    name: 'pms',
+    meta: {title: ' 系统管理', icon: 'sys'},
+    children: [{
+      path: 'product',
+      name: 'product',
+      component: () => import('../views/pms/product/index'),
+      meta: {title: '用户列表', icon: 'user-list'}
+    },
+    {
+      path: 'addProduct',
+      name: 'addProduct',
+      component: () => import('@/views/pms/product/add'),
+      meta: {title: '角色列表', icon: 'product-add'}
     }]
   },
   {path: '*', redirect: '/404', hidden: true}
