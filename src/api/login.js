@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import request from '../utils/request'
 
 export function login (username, password) {
   return request({
-    url: '/admin/login',
+    url: '/sys/user/login',
     method: 'post',
     data: {
       username,
@@ -13,7 +13,7 @@ export function login (username, password) {
 
 export function getInfo () {
   return request({
-    url: '/admin/info',
+    url: '/sys/user/info',
     method: 'get'
   })
 }

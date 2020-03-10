@@ -45,27 +45,13 @@
     </el-card>
     <img :src="login_center_bg" class="login-center-layout">
 
-    <!--<el-dialog-->
-      <!--title="公众号二维码"-->
-      <!--:visible.sync="dialogVisible"-->
-      <!--:show-close="false"-->
-      <!--:center="true"-->
-      <!--width="30%">-->
-      <!--<div style="text-align: center">-->
-        <!--<span>mall全套学习教程连载中<span class="color-main font-medium">关注公众号</span>第一时间获取</span>-->
-        <!--<img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg" width="150" height="150" style="margin-top: 10px">-->
-      <!--</div>-->
-      <!--<span slot="footer" class="dialog-footer">-->
-    <!--<el-button type="primary" @click="dialogConfirm">确定</el-button>-->
-      <!--</span>-->
-    <!--</el-dialog>-->
   </div>
 </template>
 
 <script>
-import {isvalidUsername} from '@/utils/validate'
-import {setSupport, getSupport, supportUrl} from '@/utils/support'
-import login_center_bg from '@/assets/images/login_center_bg.png'
+import {isvalidUsername} from '../../utils/validate'
+import {setSupport, getSupport} from '../../utils/support'
+import login_center_bg from '../../assets/images/login_center_bg.png'
 
 export default {
   name: 'login',
@@ -111,12 +97,16 @@ export default {
     handleLogin () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          let isSupport = getSupport()
-          if (isSupport === undefined || isSupport == null) {
-            this.dialogVisible = true
-            return
-          }
+          // let isSupport = getSupport()
+          // console.info('isSupport:' + isSupport)
+          // alert('333')
+          // if (isSupport === undefined || isSupport == null) {
+          //   alert('444')
+          //   this.dialogVisible = true
+          //   return
+          // }
           this.loading = true
+          alert('555')
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({path: '/'})
@@ -132,7 +122,6 @@ export default {
     dialogConfirm () {
       this.dialogVisible = false
       setSupport(true)
-      // window.location.href=supportUrl;
     },
     dialogCancel () {
       this.dialogVisible = false

@@ -60,12 +60,13 @@ export const constantRouterMap = [
       component: () => import('../views/pms/product/index'),
       meta: {title: '用户列表', icon: 'user-list'}
     },
-    {
-      path: 'addProduct',
-      name: 'addProduct',
-      component: () => import('@/views/pms/product/add'),
-      meta: {title: '角色列表', icon: 'product-add'}
-    }]
+    // {
+    //   path: 'addProduct',
+    //   name: 'addProduct',
+    //   component: () => import('@/views/pms/product/add'),
+    //   meta: {title: '角色列表', icon: 'product-add'}
+    // }
+    ]
   },
   {path: '*', redirect: '/404', hidden: true}
 ]
