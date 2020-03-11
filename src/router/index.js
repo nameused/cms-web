@@ -1,19 +1,3 @@
-// import Vue from 'vue'
-// import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-//
-// Vue.use(Router)
-//
-// export default new Router({
-//   routes: [
-//     {
-//       path: '/',
-//       name: 'HelloWorld',
-//       component: HelloWorld
-//     }
-//   ]
-// })
-
 import Vue from 'vue'
 import Router from 'vue-router'
 
@@ -59,7 +43,7 @@ export const constantRouterMap = [
       name: 'product',
       component: () => import('../views/pms/product/index'),
       meta: {title: '用户列表', icon: 'user-list'}
-    },
+    }
     // {
     //   path: 'addProduct',
     //   name: 'addProduct',

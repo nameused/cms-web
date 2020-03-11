@@ -27,6 +27,7 @@ const user = {
   actions: {
     // 登录
     Login ({ commit }, userInfo) {
+      console.info('login method')
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
@@ -46,6 +47,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
           const data = response.data
+          console.info(data.roles)
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
           } else {

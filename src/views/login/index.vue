@@ -72,7 +72,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        username: 'zmy',
         password: '123456'
       },
       loginRules: {
@@ -97,16 +97,8 @@ export default {
     handleLogin () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          // let isSupport = getSupport()
-          // console.info('isSupport:' + isSupport)
-          // alert('333')
-          // if (isSupport === undefined || isSupport == null) {
-          //   alert('444')
-          //   this.dialogVisible = true
-          //   return
-          // }
           this.loading = true
-          alert('555')
+          console.info('123')
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({path: '/'})
