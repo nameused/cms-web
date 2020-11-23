@@ -25,6 +25,7 @@ export const constantRouterMap = [
     path: '',
     component: Layout,
     redirect: '/home',
+    leaf: true,
     children: [{
       path: 'home',
       name: 'home',
@@ -33,23 +34,49 @@ export const constantRouterMap = [
     }]
   },
   {
-    path: '/pms',
+    path: '/dev',
     component: Layout,
-    redirect: '/pms/product',
-    name: 'pms',
-    meta: {title: ' 系统管理', icon: 'sys'},
+    redirect: '/dev/host',
+    name: 'dev',
+    meta: {title: '设备管理', icon: 'device'},
     children: [{
+      path: 'host',
+      name: 'host',
+      component: () => import('../views/dev/host'),
+      meta: {title: '主机管理', icon: 'host'}
+    },
+    {
       path: 'product',
       name: 'product',
-      component: () => import('../views/pms/product/index'),
-      meta: {title: '用户列表', icon: 'user-list'}
+      component: () => import('../views/dev/vm'),
+      meta: {title: '虚拟主机', icon: 'vm'}
     }
-    // {
-    //   path: 'addProduct',
-    //   name: 'addProduct',
-    //   component: () => import('@/views/pms/product/add'),
-    //   meta: {title: '角色列表', icon: 'product-add'}
-    // }
+    ]
+  },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/user',
+    name: 'system',
+    meta: {title: ' 系统管理', icon: 'system'},
+    children: [{
+      path: 'user',
+      name: 'user',
+      component: () => import('../views/system/user'),
+      meta: {title: '用户管理', icon: 'user'}
+    },
+    {
+      path: 'role',
+      name: 'role',
+      component: () => import('../views/system/role'),
+      meta: {title: '角色列表', icon: 'role'}
+    },
+    {
+      path: 'log',
+      name: 'log',
+      component: () => import('../views/system/log'),
+      meta: {title: '日志信息', icon: 'log'}
+    }
     ]
   },
   {path: '*', redirect: '/404', hidden: true}
