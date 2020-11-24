@@ -30,7 +30,7 @@ import store from './store'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
+import '@/styles/dialog-form.scss'
 Vue.use(ElementUI, { locale })
 Vue.use(VCharts)
 

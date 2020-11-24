@@ -1,53 +1,95 @@
 <template>
-
-<el-card class="card">
-
-  <el-table
-    :data="tableData"
-    border
-    style="width: 100%">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
-
-</el-card>
-
+  <div class="parse-container">
+    <el-card class="card">
+      <div class="parse-condition">
+        <filter-list :filters="filters" :btns="btns" @search="searchBth" />
+      </div>
+      <div v-if="list" class="parse-result">
+        <list :list="list" :first-index="firstIndex" />
+        <div v-if="pageShow" style="text-align:center;padding-top:1rem;">
+          <domain-pagination :page-count="totalPage" :total-count="totalCount" @pageCurrentChange="pageCurrentChange" />
+        </div>
+      </div>
+    </el-card>
+  </div>
 </template>
 
 <script>
+import FilterList from '../../../components/filter/filter'
+import DomainPagination from '../../../components/pagination'
+import List from './list'
+import { dataMixin } from '../../../assets/mixins/mixins'
+import {getAllHost} from '../../../api/dev'
 export default {
-  data () {
-    return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+  name: 'Index',
+  components: {
+    List,
+    FilterList,
+    DomainPagination
+  },
+  mixins: [dataMixin],
+  methods: {
+    _getInit (params = this.params) {
+      this.params.count = 10
+      getAllHost(params).then((res) => {
+        if (res.code === 200) {
+          const result = res.data.list
+          const resultList = []
+          for (let i = 0; i < result.length; i++) {
+            const resultMap = {
+              'id': result[i].id,
+              'hostName': result[i].hostName,
+              'hostAddress': result[i].hostAddress,
+              'hostDes': result[i].hostDes,
+              'createTime': result[i].createTime
+            }
+            resultList.push(resultMap)
+          }
+          this.list = resultList
+          this.totalCount = res.data.total
+          this.totalPage = res.data.totalPage
+        } else {
+          this.$message({
+            message: '获取数据失败' + res.message,
+            type: 'error'
+          })
+        }
+      })
+    },
+
+    _setFilters () {
+      this.filters = [{
+        enName: 'customName',
+        cnName: '主机名称',
+        type: 'input'
       }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        enName: 'operationName',
+        cnName: '主机地址',
+        type: 'input'
       }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        enName: 'operationTime',
+        cnName: '创建时间',
+        type: 'date'
       }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+        enName: 'hostDes',
+        cnName: '用途描述',
+        type: 'input'
+      } ]
+    },
+    _getButtonList () {
+      this.btns = [
+        {
+          type: 'success',
+          click: 'search',
+          name: '查询',
+          icon: 'search'
+        }
+      ]
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

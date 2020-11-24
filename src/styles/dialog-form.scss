@@ -1,0 +1,91 @@
+@import './variables.scss';
+//.as-table{
+//  width: 100%;
+//  border: #ccc 1px solid;
+//  padding: 10px;
+//  margin-bottom: 10px;
+//  .el-form-item {
+//    margin-bottom: 10px;
+//    margin-left: 35%;
+//    &:last-child{
+//      margin-bottom: 0;
+//    }
+//    >>>.el-form-item__label{
+//      color: $form-font-color;
+//    }
+//  }
+//}
+
+// 详情弹框样式
+.detail-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position:relative;
+  //border: #ccc 1px solid;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+// 通用detail form布局
+.detail-form {
+  padding-left: 30px;
+  .el-form-item {
+    margin-bottom: 10px;
+  }
+  .el-form-item__label {
+    color: #333333;
+  }
+}
+
+// 更新弹框样式
+//.update-container{
+//  border-radius: 5px;
+//  padding: 10px;
+//  margin-bottom: 10px;
+//}
+//.update-form{
+//  padding-left: 30px;
+//  .el-form-item {
+//    margin-bottom: 20px;
+//  }
+//}
+
+.el-dialog {
+  border-radius: 5px;
+  .el-dialog__header {
+    // #276ace #29bdd9
+    background-image: linear-gradient(-90deg, #29bdd9 0%, #276ace 100%);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    .el-dialog__title{
+      color: #ffffff;
+    }
+    .el-icon-close{
+      color: #ffffff;
+    }
+  }
+}
+
+
+//新增弹窗样式
+.add-container{
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+// 新增 更新弹窗 操作按钮布局
+.operator-button-container{
+  float: right;
+}
+
+.mix-card {
+  .el-card__header{
+    border-bottom: 0px;
+    color: rgb(191, 203, 217)
+  }
+  .el-card__body {
+    padding: 10px !important;
+  }
+}

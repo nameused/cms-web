@@ -23,6 +23,10 @@ export const listMixin = {
       }
     }
   },
+  //
+  // mounted () {
+  //   this._getInit()
+  // },
   methods: {
     closeWindow () {
       this.updateStatus = false
@@ -58,6 +62,10 @@ export const dataMixin = {
   created () {
     this._setFilters()
     this._getButtonList()
+  },
+
+  mounted () {
+    this._getInit()
   },
   methods: {
     add () {
