@@ -6,9 +6,10 @@
  */
 import request from '../utils/request'
 
-export function getAllHost () {
+export function getAllHost (params) {
   return request({
     url: '/dev/host/getAllHost',
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }

@@ -59,15 +59,15 @@ export default {
 
     _setFilters () {
       this.filters = [{
-        enName: 'customName',
+        enName: 'hostName',
         cnName: '主机名称',
         type: 'input'
       }, {
-        enName: 'operationName',
+        enName: 'hostAddress',
         cnName: '主机地址',
         type: 'input'
       }, {
-        enName: 'operationTime',
+        enName: 'createTime',
         cnName: '创建时间',
         type: 'date'
       }, {
