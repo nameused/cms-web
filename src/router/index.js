@@ -34,21 +34,21 @@ export const constantRouterMap = [
     }]
   },
   {
-    path: '/dev',
+    path: '/host',
     component: Layout,
-    redirect: '/dev/host',
+    redirect: '/host/dev',
     name: 'dev',
-    meta: {title: '设备管理', icon: 'device'},
+    meta: {title: '主机管理', icon: 'host'},
     children: [{
       path: 'host',
       name: 'host',
-      component: () => import('../views/dev/host'),
-      meta: {title: '主机管理', icon: 'host'}
+      component: () => import('../views/host/device'),
+      meta: {title: '设备管理', icon: 'device'}
     },
     {
       path: 'product',
       name: 'product',
-      component: () => import('../views/dev/vm'),
+      component: () => import('../views/host/vm'),
       meta: {title: '虚拟主机', icon: 'vm'}
     }
     ]
