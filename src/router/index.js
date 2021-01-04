@@ -40,14 +40,14 @@ export const constantRouterMap = [
     name: 'dev',
     meta: {title: '主机管理', icon: 'host'},
     children: [{
-      path: 'host',
-      name: 'host',
+      path: 'device',
+      name: 'device',
       component: () => import('../views/host/device'),
       meta: {title: '设备管理', icon: 'device'}
     },
     {
-      path: 'product',
-      name: 'product',
+      path: 'vm',
+      name: 'vm',
       component: () => import('../views/host/vm'),
       meta: {title: '虚拟主机', icon: 'vm'}
     }

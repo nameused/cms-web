@@ -13,3 +13,11 @@ export function getDevList (params) {
     params: params
   })
 }
+
+export function getVmList (params) {
+  return request({
+    url: '/host/getVmList',
+    method: 'get',
+    params: params
+  })
+}
