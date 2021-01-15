@@ -14,6 +14,7 @@
       <el-table-column prop="vmIp" label="服务地址" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="owner" label="负责人" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="rootPassword" label="root密码" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="url" label="服务访问地址" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="startMethod" label="启动方式" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="status" label="状态" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="createTime" label="录入时间" show-overflow-tooltip align="center" min-width="150" />
@@ -59,7 +60,20 @@ export default {
       }, {
         key: 'createTime',
         value: '创建时间'
-      }]
+      },
+      {
+        key: 'url',
+        value: '服务访问地址'
+      },
+      {
+        key: 'insidePort',
+        value: '内部端口'
+      },
+      {
+        key: 'internetPort',
+        value: '外网端口'
+      }
+      ]
     }
   }
 }

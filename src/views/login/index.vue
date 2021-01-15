@@ -43,7 +43,7 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <img :src="login_center_bg" class="login-center-layout">
+<!--    <img :src="login_center_bg" class="login-center-layout">-->
 
   </div>
 </template>

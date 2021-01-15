@@ -21,3 +21,11 @@ export function getVmList (params) {
     params: params
   })
 }
+
+export function addVm (params) {
+  return request({
+    url: '/host/addVm',
+    method: 'post',
+    data: params
+  })
+}
