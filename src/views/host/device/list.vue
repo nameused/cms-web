@@ -43,20 +43,20 @@ export default {
       this.selectData = data
       this.labelData = [{
         key: 'deviceName',
-        value: '主机名称'
+        value: '设备名称'
       }, {
         key: 'deviceAddress',
-        value: '主机地址'
+        value: '设备地址'
       }, {
         key: 'rootPassword',
         value: 'root密码'
       },
       {
         key: 'deviceDes',
-        value: '功能描述'
+        value: '设备用途'
       }, {
         key: 'createTime',
-        value: '创建时间'
+        value: '录入时间'
       }]
     }
   }
