@@ -2,7 +2,7 @@
   <div class="parse-container">
     <el-card class="card">
       <div class="parse-condition">
-        <filter-list :filters="filters" :btns="btns" @search="searchBth" />
+        <filter-list :filters="filters" :btns="btns" @search="searchBth" @add="add" @importExcel="importExcel"/>
       </div>
       <div v-if="list" class="parse-result">
         <list :list="list" :first-index="firstIndex" />
@@ -10,6 +10,12 @@
           <domain-pagination :page-count="totalPage" :total-count="totalCount" @pageCurrentChange="pageCurrentChange" />
         </div>
       </div>
+      <el-dialog :visible.sync="addStatus" :destroy-on-close="true" title="新增设备信息" center width="40%">
+        <add v-if="addStatus" @refresh="_getInit" @closeWindows="closeWindows" />
+      </el-dialog>
+      <el-dialog :visible.sync="importStatus" :destroy-on-close="true" title="导入数据" center width="40%">
+        <import v-if="importStatus" @refresh="_getInit" @closeImportWindows="closeImportWindows" />
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -18,11 +24,15 @@
 import FilterList from '../../../components/filter/filter'
 import DomainPagination from '../../../components/pagination'
 import List from './list'
+import Add from './add'
+import Import from './import'
 import { dataMixin } from '../../../assets/mixins/mixins'
 import {getDevList} from '../../../api/host'
 export default {
   name: 'Index',
   components: {
+    Add,
+    Import,
     List,
     FilterList,
     DomainPagination
@@ -84,6 +94,18 @@ export default {
           click: 'search',
           name: '查询',
           icon: 'search'
+        },
+        {
+          type: 'success',
+          click: 'add',
+          name: '新增',
+          icon: 'add'
+        },
+        {
+          type: 'success',
+          click: 'importExcel',
+          name: '批量导入',
+          icon: 'add'
         }
       ]
     }

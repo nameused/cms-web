@@ -54,6 +54,7 @@ export const dataMixin = {
       list: [],
       pageShow: true,
       addStatus: false,
+      importStatus: false,
       totalPage: 1,
       totalCount: 0,
       firstIndex: 1
@@ -71,8 +72,14 @@ export const dataMixin = {
     add () {
       this.addStatus = true
     },
+    importExcel () {
+      this.importStatus = true
+    },
     closeWindows () {
       this.addStatus = false
+    },
+    closeImportWindows () {
+      this.importStatus = false
     },
     searchBth (data) {
       if (data === undefined || data === null) {

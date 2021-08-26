@@ -1,10 +1,3 @@
-<!--
-  Copyright Dingxuan. All Rights Reserved.
-  description : 区块链密码与安全服务平台
-  @author 潘世成
-  @date 2020/7/8
-  @company Dingxuan
--->
 <template>
   <div class="log-container">
     <div></div>

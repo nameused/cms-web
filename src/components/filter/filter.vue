@@ -32,25 +32,25 @@
 <script>
 import utils from '../../utils/utils'
 
-const INCLUDECONTENT = ['查询', '解析', '新增', '文件签名']
+const INCLUDECONTENT = ['查询', '解析', '新增', '文件签名', '批量导入']
 const EXCLUDECONTENT = ['注册']
 export default {
   name: 'FilterSearch',
   props: {
     filters: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
     btns: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     }
   },
-  data() {
+  data () {
     return {
       keyWords: [{
         key: '',
@@ -58,11 +58,11 @@ export default {
       }]
     }
   },
-  created() {
+  created () {
     this._getFiltersList()
   },
   methods: {
-    handleClick(event) {
+    handleClick (event) {
       for (let i = 0; i < this.btns.length; i++) {
         if (this.btns[i].name === event.target.innerText) {
           if (INCLUDECONTENT.includes(event.target.innerText)) {
@@ -84,7 +84,7 @@ export default {
         }
       }
     },
-    _getFiltersList() {
+    _getFiltersList () {
       this.keyWords = []
       for (let i = 0; i < this.filters.length; i++) {
         this.keyWords.push({
