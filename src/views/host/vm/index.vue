@@ -77,13 +77,13 @@ export default {
           type: 'success',
           click: 'search',
           name: '查询',
-          icon: 'search'
+          icon: 'el-icon-search'
         },
         {
           type: 'success',
           click: 'add',
           name: '新增',
-          icon: 'add'
+          icon: 'el-icon-circle-plus-outline'
         }
       ]
     }

@@ -93,19 +93,25 @@ export default {
           type: 'success',
           click: 'search',
           name: '查询',
-          icon: 'search'
+          icon: 'el-icon-search'
         },
         {
           type: 'success',
           click: 'add',
           name: '新增',
-          icon: 'add'
+          icon: 'el-icon-circle-plus-outline'
+        },
+        {
+          type: 'success',
+          click: 'templateDown',
+          name: '模板下载',
+          icon: 'el-icon-download'
         },
         {
           type: 'success',
           click: 'importExcel',
           name: '批量导入',
-          icon: 'add'
+          icon: 'el-icon-upload2'
         }
       ]
     }

@@ -13,6 +13,14 @@ export function getDevList (params) {
   })
 }
 
+export function deleteDev (params) {
+  return request({
+    url: '/host/deleteDevice',
+    method: 'post',
+    data: params
+  })
+}
+
 export function getVmList (params) {
   return request({
     url: '/host/getVmList',
@@ -32,6 +40,10 @@ export function addVm (params) {
 export function importDeviceExcel (params) {
   return request({
     url: '/host/importDeviceExcel',
+    headers: {
+      'Content-Type': 'multipart/form-data boundary= ' + new Date().getTime()
+    },
+    changeOrigin: true,
     method: 'post',
     data: params
   })

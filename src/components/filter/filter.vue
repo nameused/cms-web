@@ -16,7 +16,7 @@
             <el-button
               v-for="(btn, idx) in btns"
               :key="idx"
-              :icon="btn.icon==='add'? 'el-icon-circle-plus-outline' : 'el-icon-search'"
+              :icon="btn.icon"
               :style="'width:'+ (btn.name.length>4 ||btn.icon) ? (btn.name.length + 1) * 20: 80 + 'px;'"
               size="mini"
               type="primary"
@@ -32,7 +32,7 @@
 <script>
 import utils from '../../utils/utils'
 
-const INCLUDECONTENT = ['查询', '解析', '新增', '文件签名', '批量导入']
+const INCLUDECONTENT = ['查询', '新增', '批量导入', '模板下载']
 const EXCLUDECONTENT = ['注册']
 export default {
   name: 'FilterSearch',

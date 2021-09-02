@@ -27,12 +27,16 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import router from './router'
 import store from './store'
-
 import '@/icons' // icon
 import '@/permission' // permission control
 import '@/styles/dialog-form.scss'
+import moment from 'moment'
 Vue.use(ElementUI, { locale })
 Vue.use(VCharts)
+
+Vue.filter('dataFormat', function (data) { // 全局过滤器（时间戳转换时间）
+  return moment(data).format('YYYY-MM-DD HH:mm:ss')
+})
 
 Vue.config.productionTip = false
 

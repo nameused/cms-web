@@ -7,10 +7,15 @@
       <el-table-column prop="deviceAddress" label="设备地址" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="rootPassword" label="root密码" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column prop="deviceDes" label="设备用途" show-overflow-tooltip align="center" min-width="150" />
-      <el-table-column prop="createTime" label="录入时间" show-overflow-tooltip align="center" min-width="150" />
-      <el-table-column label="操作" width="80" align="center">
+      <el-table-column prop="createTime"  label="录入时间" show-overflow-tooltip align="center" min-width="150" >
+      <template slot-scope='scope'>
+        <span>{{scope.row.createTime | dataFormat}}</span>
+      </template>
+      </el-table-column>
+      <el-table-column label="操作" width="160" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleDetail(scope.row)">详情</el-button>
+          <el-button size="mini" type="primary" @click="deleteData(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -23,7 +28,8 @@
 <script>
 import Detail from '../../../components/detail/detail'
 import { listMixin } from '../../../assets/mixins/mixins'
-
+import moment from 'moment'
+import {deleteDev} from '../../../api/host'
 export default {
   name: 'deviceList',
   components: {
@@ -32,6 +38,8 @@ export default {
   mixins: [listMixin],
   methods: {
     handleDetail (data) {
+      data.createTime = moment(data.createTime).format('YYYY-MM-DD HH:mm:ss')
+      console.info()
       this.detailStatus = true
       this.selectData = data
       this.labelData = [{
@@ -51,6 +59,32 @@ export default {
         key: 'createTime',
         value: '录入时间'
       }]
+    },
+    deleteData (data) {
+
+      deleteDev(data.id).then((res) => {
+        if (res.code === 200) {
+          this.loading = false
+          this.$message({
+            type: 'success',
+            message: '删除设备信息成功!'
+          })
+          this.$emit('refresh')
+        } else {
+          this.loading = false
+          this.$message({
+            type: 'error',
+            message: res.message
+          })
+        }
+      }).catch((err) => {
+        this.$message({
+          type: 'error',
+          message: err.message
+        })
+        this.loading = false
+        this.$emit('refresh')
+      })
     }
   }
 }
