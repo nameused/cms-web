@@ -23,10 +23,7 @@ export const listMixin = {
       }
     }
   },
-  //
-  // mounted () {
-  //   this._getInit()
-  // },
+
   methods: {
     closeWindow () {
       this.updateStatus = false
@@ -90,6 +87,7 @@ export const dataMixin = {
       this.totalPage = 1
       this._getInit(this.params)
     },
+
     pageCurrentChange (page) {
       this.params.page = page - 1
       if (page === 1) {

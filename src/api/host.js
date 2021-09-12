@@ -15,9 +15,8 @@ export function getDevList (params) {
 
 export function deleteDev (params) {
   return request({
-    url: '/host/deleteDevice',
-    method: 'post',
-    data: params
+    url: '/host/deleteDevice/' + params,
+    method: 'post'
   })
 }
 
@@ -46,5 +45,16 @@ export function importDeviceExcel (params) {
     changeOrigin: true,
     method: 'post',
     data: params
+  })
+}
+
+export function downloadDeviceFile () {
+  return request({
+    url: '/host/downloadDeviceFile',
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json;application/octet-stream'
+    },
+    responseType: 'blob'
   })
 }

@@ -2,7 +2,7 @@
   <div class="parse-container">
     <el-card class="card">
       <div class="parse-condition">
-        <filter-list :filters="filters" :btns="btns" @search="searchBth" @add="add" @importExcel="importExcel"/>
+        <filter-list :filters="filters" :btns="btns" @search="searchBth" @add="add" @templateDown="templateDown" @importExcel="importExcel"/>
       </div>
       <div v-if="list" class="parse-result">
         <list :list="list" :first-index="firstIndex" />
@@ -27,7 +27,7 @@ import List from './list'
 import Add from './add'
 import Import from './import'
 import { dataMixin } from '../../../assets/mixins/mixins'
-import {getDevList} from '../../../api/host'
+import {getDevList, downloadDeviceFile} from '../../../api/host'
 export default {
   name: 'Index',
   components: {
@@ -114,6 +114,55 @@ export default {
           icon: 'el-icon-upload2'
         }
       ]
+    },
+    templateDown () {
+      downloadDeviceFile().then(res => {
+        alert(11111)
+        if (!res.data) {
+          this.$Message.error('下载内容为空')
+          return
+        }
+        // let url = window.URL.createObjectURL(new Blob([res.data]))
+        // let link = document.createElement('a')
+        // link.style.display = 'none'
+        // link.href = url
+        // link.setAttribute('download', 'device_template.xlsx')
+        //
+        // document.body.appendChild(link)
+        // link.click()
+        // // 释放URL对象所占资源
+        // window.URL.revokeObjectURL(url)
+        // // 用完即删
+        // document.body.removeChild(link)
+
+        let data = res.data
+        alert(data)
+        if (!data) {
+          return
+        }
+        console.log(res)
+        // 构造a标签 通过a标签来下载
+        let url = window.URL.createObjectURL(new Blob([data]), {
+          type: 'application/vnd.ms-excel;charset=utf-8'
+        })
+        let a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        // 此处的download是a标签的内容，固定写法，不是后台api接口
+        a.setAttribute('download', 'device_template.xlsx')
+        document.body.appendChild(a)
+        // 点击下载
+        a.click()
+        // 下载完成移除元素
+        document.body.removeChild(a)
+        // 释放掉blob对象
+        window.URL.revokeObjectURL(url)
+      }).catch(err => {
+        this.$message({
+          message: '文件下载失败!' + err.message,
+          type: 'error'
+        })
+      })
     }
   }
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="log-container">
-    <div></div>
     <el-table ref="logslist" v-loading="loading" :data="list" size="mini" border stripe highlight-current-row>
       <el-table-column prop="id" label="序号" align="center" width="60" fixed="left" />
       <el-table-column prop="deviceName" label="设备名称" show-overflow-tooltip align="center" min-width="150" />
@@ -15,7 +14,7 @@
       <el-table-column label="操作" width="160" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleDetail(scope.row)">详情</el-button>
-          <el-button size="mini" type="primary" @click="deleteData(scope.row)">删除</el-button>
+          <el-button size="mini" type="primary"  @click="deleteData(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -31,6 +30,7 @@ import { listMixin } from '../../../assets/mixins/mixins'
 import moment from 'moment'
 import {deleteDev} from '../../../api/host'
 export default {
+  inject: ['reload'],
   name: 'deviceList',
   components: {
     Detail
@@ -61,7 +61,6 @@ export default {
       }]
     },
     deleteData (data) {
-
       deleteDev(data.id).then((res) => {
         if (res.code === 200) {
           this.loading = false
@@ -69,7 +68,7 @@ export default {
             type: 'success',
             message: '删除设备信息成功!'
           })
-          this.$emit('refresh')
+          this.reload()
         } else {
           this.loading = false
           this.$message({
