@@ -51,9 +51,10 @@ export function importDeviceExcel (params) {
 export function downloadDeviceFile () {
   return request({
     url: '/host/downloadDeviceFile',
-    method: 'get',
+    method: 'post',
     headers: {
-      'Content-Type': 'application/json;application/octet-stream'
+      'Cache-Control': 'no-cache',
+      'content-type': 'application/octet-stream'
     },
     responseType: 'blob'
   })

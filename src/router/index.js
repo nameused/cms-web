@@ -36,7 +36,7 @@ export const constantRouterMap = [
   {
     path: '/host',
     component: Layout,
-    redirect: '/host/dev',
+    redirect: '/host/device',
     name: 'dev',
     meta: {title: '主机管理', icon: 'host'},
     children: [{

@@ -117,34 +117,12 @@ export default {
     },
     templateDown () {
       downloadDeviceFile().then(res => {
-        alert(11111)
-        if (!res.data) {
-          this.$Message.error('下载内容为空')
+        if (!res) {
+          this.$message.error('下载内容为空')
           return
         }
-        // let url = window.URL.createObjectURL(new Blob([res.data]))
-        // let link = document.createElement('a')
-        // link.style.display = 'none'
-        // link.href = url
-        // link.setAttribute('download', 'device_template.xlsx')
-        //
-        // document.body.appendChild(link)
-        // link.click()
-        // // 释放URL对象所占资源
-        // window.URL.revokeObjectURL(url)
-        // // 用完即删
-        // document.body.removeChild(link)
-
-        let data = res.data
-        alert(data)
-        if (!data) {
-          return
-        }
-        console.log(res)
         // 构造a标签 通过a标签来下载
-        let url = window.URL.createObjectURL(new Blob([data]), {
-          type: 'application/vnd.ms-excel;charset=utf-8'
-        })
+        let url = window.URL.createObjectURL(new Blob([res]))
         let a = document.createElement('a')
         a.style.display = 'none'
         a.href = url
@@ -158,6 +136,7 @@ export default {
         // 释放掉blob对象
         window.URL.revokeObjectURL(url)
       }).catch(err => {
+        console.info(err)
         this.$message({
           message: '文件下载失败!' + err.message,
           type: 'error'
