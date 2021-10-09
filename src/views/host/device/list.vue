@@ -11,10 +11,10 @@
         <span>{{scope.row.createTime | dataFormat}}</span>
       </template>
       </el-table-column>
-      <el-table-column label="操作" width="160" align="center">
+      <el-table-column label="操作"  fixed="right" width="160" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleDetail(scope.row)">详情</el-button>
-          <el-button size="mini" type="primary"  @click="deleteData(scope.row)">删除</el-button>
+          <el-button size="mini" type="primary"  @click="open(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -60,29 +60,40 @@ export default {
         value: '录入时间'
       }]
     },
-    deleteData (data) {
-      deleteDev(data.id).then((res) => {
-        if (res.code === 200) {
-          this.loading = false
-          this.$message({
-            type: 'success',
-            message: '删除设备信息成功!'
-          })
-          this.reload()
-        } else {
-          this.loading = false
+    open (data) {
+      this.$confirm('此操作将永久删除该条记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteDev(data.id).then((res) => {
+          if (res.code === 200) {
+            this.loading = false
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.reload()
+          } else {
+            this.loading = false
+            this.$message({
+              type: 'error',
+              message: res.message
+            })
+          }
+        }).catch((err) => {
           this.$message({
             type: 'error',
-            message: res.message
+            message: err.message
           })
-        }
-      }).catch((err) => {
-        this.$message({
-          type: 'error',
-          message: err.message
+          this.loading = false
+          this.$emit('refresh')
         })
-        this.loading = false
-        this.$emit('refresh')
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
     }
   }

@@ -36,6 +36,13 @@ export function addVm (params) {
   })
 }
 
+export function deleteVm (params) {
+  return request({
+    url: '/host/deleteVm/' + params,
+    method: 'post'
+  })
+}
+
 export function importDeviceExcel (params) {
   return request({
     url: '/host/importDeviceExcel',
@@ -51,6 +58,18 @@ export function importDeviceExcel (params) {
 export function downloadDeviceFile () {
   return request({
     url: '/host/downloadDeviceFile',
+    method: 'post',
+    headers: {
+      'Cache-Control': 'no-cache',
+      'content-type': 'application/octet-stream'
+    },
+    responseType: 'blob'
+  })
+}
+
+export function downloadVmFile () {
+  return request({
+    url: '/host/downloadVmFile',
     method: 'post',
     headers: {
       'Cache-Control': 'no-cache',

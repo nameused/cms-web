@@ -20,10 +20,10 @@
           <span>{{scope.row.createTime | dataFormat}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="note" label="备注" show-overflow-tooltip align="center" min-width="150" />
-      <el-table-column label="操作" width="80" align="center">
+      <el-table-column label="操作"  fixed="right"  width="160" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleDetail(scope.row)">详情</el-button>
+          <el-button size="mini" type="primary"  @click="open(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,7 +37,9 @@
 import Detail from '../../../components/detail/detail'
 import moment from 'moment'
 import { listMixin } from '../../../assets/mixins/mixins'
+import {deleteVm} from '../../../api/host'
 export default {
+  inject: ['reload'],
   name: 'vmList',
   components: {
     Detail
@@ -50,18 +52,37 @@ export default {
       this.selectData = data
       this.labelData = [{
         key: 'vmName',
-        value: 'vm名称'
-      }, {
+        value: '名称'
+      },
+      {
         key: 'vmIp',
-        value: '服务地址'
-      }, {
+        value: 'IP地址'
+      },
+      {
         key: 'owner',
         value: '负责人'
       },
       {
+        key: 'rootPassword',
+        value: 'root密码'
+      },
+      {
+        key: 'insideUrl',
+        value: '内网访问地址'
+      },
+      {
+        key: 'outsideUrl',
+        value: '外网访问地址'
+      },
+      {
         key: 'startMethod',
-        value: '启动方式'
-      }, {
+        value: '服务启动方式'
+      },
+      {
+        key: 'hostIp',
+        value: '宿主机IP'
+      },
+      {
         key: 'createTime',
         value: '创建时间'
       },
@@ -74,10 +95,58 @@ export default {
         value: '内网端口'
       },
       {
+        key: 'isDevice',
+        value: '是否为设备'
+      },
+      {
         key: 'outsidePort',
         value: '外网端口'
+      },
+      {
+        key: 'startStatus',
+        value: '启用状态'
+      },
+      {
+        key: 'note',
+        value: '备注'
       }
       ]
+    },
+    open (data) {
+      this.$confirm('此操作将永久删除该条记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteVm(data.id).then((res) => {
+          if (res.code === 200) {
+            this.loading = false
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.reload()
+          } else {
+            this.loading = false
+            this.$message({
+              type: 'error',
+              message: res.message
+            })
+          }
+        }).catch((err) => {
+          this.$message({
+            type: 'error',
+            message: err.message
+          })
+          this.loading = false
+          this.$emit('refresh')
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   }
 }

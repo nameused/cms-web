@@ -2,7 +2,7 @@
   <div class="parse-container">
     <el-card class="card">
       <div class="parse-condition">
-        <filter-list :filters="filters" :btns="btns" @search="searchBth" @add="add"/>
+        <filter-list :filters="filters" :btns="btns" @search="searchBth" @templateDown="templateDown" @add="add"  />
       </div>
       <div v-if="list" class="parse-result">
         <list :list="list" :first-index="firstIndex"/>
@@ -23,7 +23,7 @@ import DomainPagination from '../../../components/pagination'
 import List from './list'
 import Add from './add'
 import {dataMixin} from '../../../assets/mixins/mixins'
-import {getVmList} from '../../../api/host'
+import {downloadVmFile, getVmList} from '../../../api/host'
 
 export default {
   name: 'Index',
@@ -55,7 +55,7 @@ export default {
     _setFilters () {
       this.filters = [{
         enName: 'vmName',
-        cnName: 'vm名称',
+        cnName: '名称',
         type: 'input'
       }, {
         enName: 'vmIp',
@@ -84,8 +84,48 @@ export default {
           click: 'add',
           name: '新增',
           icon: 'el-icon-circle-plus-outline'
+        },
+        {
+          type: 'success',
+          click: 'templateDown',
+          name: '模板下载',
+          icon: 'el-icon-download'
+        },
+        {
+          type: 'success',
+          click: 'importExcel',
+          name: '批量导入',
+          icon: 'el-icon-upload2'
         }
       ]
+    },
+    templateDown () {
+      downloadVmFile().then(res => {
+        if (!res) {
+          this.$message.error('下载内容为空')
+          return
+        }
+        // 构造a标签 通过a标签来下载
+        let url = window.URL.createObjectURL(new Blob([res]))
+        let a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        // 此处的download是a标签的内容，固定写法，不是后台api接口
+        a.setAttribute('download', 'vm_template.xlsx')
+        document.body.appendChild(a)
+        // 点击下载
+        a.click()
+        // 下载完成移除元素
+        document.body.removeChild(a)
+        // 释放掉blob对象
+        window.URL.revokeObjectURL(url)
+      }).catch(err => {
+        console.info(err)
+        this.$message({
+          message: '文件下载失败!' + err.message,
+          type: 'error'
+        })
+      })
     }
   }
 }
