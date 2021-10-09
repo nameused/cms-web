@@ -55,6 +55,18 @@ export function importDeviceExcel (params) {
   })
 }
 
+export function importVmExcel (params) {
+  return request({
+    url: '/host/importVmExcel',
+    headers: {
+      'Content-Type': 'multipart/form-data boundary= ' + new Date().getTime()
+    },
+    changeOrigin: true,
+    method: 'post',
+    data: params
+  })
+}
+
 export function downloadDeviceFile () {
   return request({
     url: '/host/downloadDeviceFile',

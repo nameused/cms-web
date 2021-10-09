@@ -57,7 +57,8 @@ export default {
       this.$refs.upload.submit()
     },
 
-    submit (params) { // 如果要自定义submit的话el-upload需要加上:http-request="submit"
+    submit (params) {
+      // 如果要自定义submit的话el-upload需要加上:http-request="submit"
       console.log(params)
       const form = new FormData()
       form.append('file', params.file)

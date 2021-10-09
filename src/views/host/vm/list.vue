@@ -87,20 +87,16 @@ export default {
         value: '创建时间'
       },
       {
-        key: 'url',
-        value: '服务访问地址'
-      },
-      {
         key: 'insidePort',
         value: '内网端口'
       },
       {
-        key: 'isDevice',
-        value: '是否为设备'
-      },
-      {
         key: 'outsidePort',
         value: '外网端口'
+      },
+      {
+        key: 'isDevice',
+        value: '是否为设备'
       },
       {
         key: 'startStatus',

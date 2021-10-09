@@ -2,7 +2,7 @@
   <div class="parse-container">
     <el-card class="card">
       <div class="parse-condition">
-        <filter-list :filters="filters" :btns="btns" @search="searchBth" @templateDown="templateDown" @add="add"  />
+        <filter-list :filters="filters" :btns="btns" @search="searchBth" @templateDown="templateDown" @add="add"  @importExcel="importExcel" />
       </div>
       <div v-if="list" class="parse-result">
         <list :list="list" :first-index="firstIndex"/>
@@ -13,6 +13,9 @@
       <el-dialog :visible.sync="addStatus" :destroy-on-close="true" title="新增虚拟机" center width="40%">
         <add v-if="addStatus" @refresh="_getInit" @closeWindows="closeWindows" />
       </el-dialog>
+      <el-dialog :visible.sync="importStatus" :destroy-on-close="true" title="导入数据" center width="40%">
+        <import v-if="importStatus" @refresh="_getInit" @closeImportWindows="closeImportWindows" />
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -22,6 +25,7 @@ import FilterList from '../../../components/filter/filter'
 import DomainPagination from '../../../components/pagination'
 import List from './list'
 import Add from './add'
+import Import from './import'
 import {dataMixin} from '../../../assets/mixins/mixins'
 import {downloadVmFile, getVmList} from '../../../api/host'
 
@@ -30,6 +34,7 @@ export default {
   components: {
     Add,
     List,
+    Import,
     FilterList,
     DomainPagination
   },
