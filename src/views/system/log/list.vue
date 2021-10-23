@@ -1,19 +1,14 @@
-<!--
-  Copyright Dingxuan. All Rights Reserved.
-  description : 区块链密码与安全服务平台
-  @author 潘世成
-  @date 2020/7/8
-  @company Dingxuan
--->
 <template>
   <div class="log-container">
     <div></div>
     <el-table ref="logslist" v-loading="loading" :data="list" size="mini" border stripe highlight-current-row>
       <el-table-column :index="firstIndex" type="index" label="序号" align="center" width="60" fixed="left" />
-      <el-table-column prop="operator" label="操作人员" show-overflow-tooltip align="center" min-width="150" />
-      <el-table-column prop="operationName" label="功能模块" show-overflow-tooltip align="center" min-width="150" />
-      <el-table-column prop="operationResult" label="操作结果" show-overflow-tooltip align="center" min-width="150" />
-      <el-table-column prop="operationTime" label="操作时间" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="operator" label="操作人" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="operateType" label="操作类型" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="operateContent" label="操作内容" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="operateResult" label="操作结果" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="operateTime" label="操作时间" show-overflow-tooltip align="center" min-width="150" />
+      <el-table-column prop="remark" label="操作详情" show-overflow-tooltip align="center" min-width="150" />
       <el-table-column label="操作" width="80" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleDetail(scope.row)">详情</el-button>
@@ -42,16 +37,16 @@ export default {
       this.selectData = data
       this.labelData = [{
         key: 'operator',
-        value: '操作人员'
+        value: '操作人'
       }, {
-        key: 'operationName',
+        key: 'operateType',
         value: '功能模块'
       }, {
-        key: 'operationResult',
+        key: 'operateResult',
         value: '操作结果'
       }, {
-        key: 'operationTime',
-        value: '日志状态'
+        key: 'operateTime',
+        value: '操作时间'
       }]
     }
   }

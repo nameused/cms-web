@@ -18,6 +18,7 @@
 import FilterList from '../../../components/filter/filter'
 import DomainPagination from '../../../components/pagination'
 import List from './list'
+import {getSyslogList} from '../../../api/syslog'
 import { dataMixin } from '../../../assets/mixins/mixins'
 
 export default {
@@ -32,22 +33,48 @@ export default {
   methods: {
     _getInit (params = this.params) {
       this.params.count = 10
+      getSyslogList(params).then((res) => {
+        if (res.code === 200) {
+          const result = res.data.list
+          const resultList = []
+          for (let i = 0; i < result.length; i++) {
+            const resultMap = {
+              'id': result[i].id,
+              'operator': result[i].operator,
+              'operateType': result[i].operateType,
+              'operateContent': result[i].operateContent,
+              'operateResult': result[i].operateResult,
+              'operateTime': result[i].operateTime,
+              'remark': result[i].remark
+            }
+            resultList.push(resultMap)
+          }
+          this.list = resultList
+          this.totalCount = res.data.total
+          this.totalPage = res.data.totalPage
+        } else {
+          this.$message({
+            message: '获取数据失败' + res.message,
+            type: 'error'
+          })
+        }
+      })
     },
     _setFilters () {
       this.filters = [{
-        enName: 'customName',
-        cnName: '操作人员',
+        enName: 'operator',
+        cnName: '操作人',
         type: 'input'
       }, {
-        enName: 'operationName',
-        cnName: '功能模块',
+        enName: 'operateType',
+        cnName: '操作类型',
         type: 'input'
       }, {
-        enName: 'operationTime',
+        enName: 'operateTime',
         cnName: '操作日期',
         type: 'date'
       }, {
-        enName: 'operationResult',
+        enName: 'operateResult',
         cnName: '操作结果',
         type: 'select',
         options: [
